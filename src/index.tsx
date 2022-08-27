@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import 'antd/dist/antd.min.css'; // 引入antd UI 模块
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
