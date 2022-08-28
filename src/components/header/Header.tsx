@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
                     >
                         语言
                     </Dropdown.Button >
-                    <Button.Group className={styles['button-group']}>
+                    <Button.Group className={styles["button-group"]}>
                         <Button>注册</Button>
                         <Button>登录</Button>
                     </Button.Group>

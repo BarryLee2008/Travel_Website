@@ -2,79 +2,10 @@
 .App {
   background-color: rgba(0, 0, 0, 0.8);
 }
-/* 包裹top-header的div */
-.top-header {
-  height: 40px;
-  line-height: 40px;
-  color:#f5f5f5;
-  padding-left: 4%;
-  padding-right: 4%;
-  background-color: #f5f5f5;
-}
-/* top-header的容器，控制宽度和下方对其 */
-.top-header-container {
-  width: 88%;
+.content-container {
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
-
-}
-/* 让按钮浮动，显示在一行上 */
-.button-group {
-  float: right;
-  margin-top: 5px;
-}
-/* 包裹layout.header组件的div。强制设定颜色为白色 */
-.app-header {
-  background-color: white !important;
-}
-/* 设定整个layout.header标签的样式 */
-.main-header {
-  width: 88%;
-  margin-left: auto;
-  margin-right: auto;
-  height: 60px;
-  line-height: 60px;
-  background-color: ivory !important;
-
-}
-/* header中的logo设定为左浮动大小60 */
-.App-logo {
-  height: 60px;
-  width: 60px;
-  float: left;
-}
-/* layout.header中的title的样式 */
-.title {
-  display: inline;
-  line-height: 64px;
-  color: #03A9F4 !important;
-}
-/* layout.header中input的样式 */
-.search-input {
-  width: 400px !important;
-  line-height: 64px;
-  margin-top: 17px;
-  margin-left: 37px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-/* 导航栏menu样式 */
-.main-menu {
-  padding-left: 6% !important;
-  padding-right: 6% !important;
-  background-color: #1976D2 !important;
-  color: #f5f5f5 !important;
+  min-height: 75vh;
+  background-color: white;
 }
