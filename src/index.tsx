@@ -4,12 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.min.css'; // 引入antd UI 模块
+import './i18n/congigs' // 引入创建的i18n对象。所有的组件都可以通过context获得i18n对象，
+// 引入react-redux的provider组件。它的作用是给全部组件注入store
+import { Provider } from 'react-redux'
+// 引入store
+import store from './redux/store'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 

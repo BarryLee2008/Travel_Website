@@ -8,10 +8,14 @@ import { Header, Footer, SideMenu, Carousel, ProductCollection, BusinessPartners
 import sideImage from '../../assets/images/sider_2019_12-09.png'
 import sideImage2 from '../../assets/images/sider_2019_02-04.png';
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png';
+// 引入i18n的高阶函数，给home组件注入contex对象
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 /* 这里用类组件 */
-export class Home extends React.Component {
+ class HomeComponent extends React.Component<WithTranslation> { // 高阶函数中会给组件传入新的参数，所以说要保证类型一致
     render() {
+        // 声明t函数。它的作用是获得resource中的字符串，传入的参数是字符串对应的json路径
+        const t = this.props.t
         return (
             <>
                 <Header />
@@ -30,19 +34,19 @@ export class Home extends React.Component {
                     </Row>
                     {/* 爆款推荐 */}
                     <ProductCollection
-                        title={<Typography.Title level={3} type={'danger'}>爆款推荐</Typography.Title>}
+                        title={<Typography.Title level={3} type={'danger'}>{t('home_page.hot_recommended')}</Typography.Title>}
                         sideImage={sideImage}
                         product={productList1}
                     />
                     {/* 新品上市 */}
                     <ProductCollection
-                        title={<Typography.Title level={3} type={'warning'}>新品上市</Typography.Title>}
+                        title={<Typography.Title level={3} type={'warning'}>{t('home_page.new_arrival')}</Typography.Title>}
                         sideImage={sideImage2}
                         product={productList2}
                     />
                     {/* 国内旅游 */}
                     <ProductCollection
-                        title={<Typography.Title level={3} type={'success'}>国内游推荐</Typography.Title>}
+                        title={<Typography.Title level={3} type={'success'}>{t('home_page.domestic_travel')}</Typography.Title>}
                         sideImage={sideImage3}
                         product={productList3}
                     />
@@ -54,3 +58,4 @@ export class Home extends React.Component {
         )
     }
 }
+export const Home = withTranslation()(HomeComponent)
