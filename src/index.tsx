@@ -9,6 +9,9 @@ import './i18n/congigs' // 引入创建的i18n对象。所有的组件都可以�
 import { Provider } from 'react-redux'
 // 引入store
 import store from './redux/store'
+// 设置默认的axios请求中的header
+import axios from 'axios';
+axios.defaults.headers['x-icode'] = 'EEA0422B23AE75CA'
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

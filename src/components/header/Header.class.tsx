@@ -25,8 +25,8 @@ import styles from './header.module.css'
 // 定义mapStateToProps。它是一个函数返回当前store中的数据
 const mapStateToProps = (state:RootState) => {
     return {
-        language:state.language,
-        languageList:state.languageList
+        language:state.language.language,
+        languageList:state.language.languageList
     }
 } 
 // 定义mapStateToDispatch。 它是一个函数返回封装好的方法可以直接调用dispatch

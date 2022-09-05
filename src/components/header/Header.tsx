@@ -17,8 +17,8 @@ import styles from './header.module.css'
 export const Header: React.FC = () => {
     const navigate = useNavigate()
     // 使用useSlector函数获得store中的数据
-    const language = useSelector((state)=>(state.language))
-    const languageList = useSelector((state)=>(state.languageList))
+    const language = useSelector((state)=>(state.language.language))
+    const languageList = useSelector((state)=>(state.language.languageList))
     // 获得dispatch方法
     const dispatch = useDispatch()
     // 获得t方法来使用i18n,返回的是个对象
