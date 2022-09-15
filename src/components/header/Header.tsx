@@ -69,7 +69,7 @@ export const Header: React.FC = () => {
                         <img src={logo} alt="logo" className={styles['App-logo']} />
                         <Typography.Title className={styles.title}>{t('header.title')}</Typography.Title>
                     </span>
-                    <Input.Search className={styles['search-input']} placeholder={'请输入目的地、主题或关键字'} />
+                    <Input.Search className={styles['search-input']} placeholder={'请输入目的地、主题或关键字'} onSearch={(keyword)=>{navigate(`/search/${keyword}`)}}/>
                 </Layout.Header>
                 {/* menu标签用来设置垂直或者水平的导航栏，mode用来控制方向。items是导航的类容 */}
                 <Menu className={styles['main-menu']} mode='horizontal' items={
