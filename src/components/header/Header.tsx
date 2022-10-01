@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from '../../assets/logo.svg'
 import { Layout, Typography, Menu, Dropdown, Button, Input } from 'antd';
 // 引入antd-design的标签
@@ -7,22 +7,48 @@ import { Layout, Typography, Menu, Dropdown, Button, Input } from 'antd';
 // input 就是输入框
 // 引入action构造函数
 import {addNewLanguageActionCreator,changeLanguageActionCtreator} from '../../redux/reducerLanguage/LanguageActions'
+import { userSlice } from '../../redux/user/userSlice'
 // 引入钩子函数
 import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import {useSelector} from '../../redux/hooks'
 import {useDispatch} from 'react-redux'
 import {useTranslation} from 'react-i18next'
 import { GlobalOutlined } from '@ant-design/icons'; //引入icon模块
+import jwtDecode, {JwtPayload as defaultJwtPayload} from "jwt-decode";
 import styles from './header.module.css'
+// 声明解码后的jwt的类型,加上username这个属性
+interface JwtPayload extends defaultJwtPayload {
+    username: string 
+} 
 export const Header: React.FC = () => {
     const navigate = useNavigate()
+    const [username, setUsername] = useState('')
     // 使用useSlector函数获得store中的数据
     const language = useSelector((state)=>(state.language.language))
     const languageList = useSelector((state)=>(state.language.languageList))
+    const JWT = useSelector((state)=>(state.userLogin.token))
+    const error = useSelector((state) => (state.ShoppingCart.error))
+    const lang = useSelector((state)=>{ return state.language.language})
     // 获得dispatch方法
     const dispatch = useDispatch()
     // 获得t方法来使用i18n,返回的是个对象
     const {t} = useTranslation()
+    // 获得购物车的数据和loading信息
+    const shoppingCartItems = useSelector((state)=>{return state.ShoppingCart.itemsInShoppingCart})
+    const shoppingCartLoading  = useSelector((state)=>(state.ShoppingCart.loading))
+    // 使用副作用函数，在jwt变化的时候调用
+    useEffect(()=>{
+        // 当jwt不为空的时候，即成功登录的时候，解码jwt,获得用户名
+        if(JWT !== null) {
+            const decodedToken = jwtDecode<JwtPayload>(JWT)
+            setUsername(decodedToken.username)
+        }
+       
+    },[JWT])
+    useEffect(()=>{
+        const action = changeLanguageActionCtreator(lang)
+            dispatch(action)
+    },[])
     // 用来控制语言切换的函数
     const handleMenuClick = (e) => {
         if(e.key === 'new') {
@@ -33,7 +59,19 @@ export const Header: React.FC = () => {
             dispatch(action)
         }
     }
+    // 用来控制登出的函数
+    const onLogOut = () => {
+        dispatch(userSlice.actions.logOut())
+        // 登出后重新定向到主页
+        navigate('/')
+        
+    }
     // return 只能返回一个DIV,如果要返回多个需要在最外层包裹一层父级div
+    if(error) {
+        if(error.response.status === 401) {
+            navigate('/login')
+        }
+    }
     return (
         <div>
             {/* 页面中的topheader，即语言选择的那一个bar */}
@@ -56,10 +94,17 @@ export const Header: React.FC = () => {
                     >
                         {language === 'en' ? 'English' : '中文'}
                     </Dropdown.Button >
-                    <Button.Group className={styles["button-group"]}>
-                        <Button onClick={() => { navigate('/signup') }}>{t('header.register')}</Button>
-                        <Button onClick={() => { navigate('/login') }}>{t('header.signin')}</Button>
-                    </Button.Group>
+                    {/* 二元表达式，判断JWT是否存在 */}
+                    {JWT ? (
+                        <Button.Group className={styles["button-group"]}>
+                            <span>{t('header.welcome')}<Typography.Text strong>{username}</Typography.Text></span>
+                            <Button onClick={onLogOut}>{t('header.signOut')}</Button>
+                            <Button onClick={()=>{ navigate('/shoppingCart')}} loading={shoppingCartLoading}>{t('header.shoppingCart')}{shoppingCartItems.length}</Button>
+                        </Button.Group>):
+                        <Button.Group className={styles["button-group"]}>
+                           <Button onClick={() => { navigate('/signup') }}>{t('header.register')}</Button>
+                           <Button onClick={() => { navigate('/login') }}>{t('header.signin')}</Button>
+                        </Button.Group>}
                 </div>
             </div>
             <div className={styles['app-header']}>

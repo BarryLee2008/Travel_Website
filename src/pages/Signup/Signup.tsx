@@ -1,8 +1,11 @@
 import React from "react";
 import styles from "./Signup.module.css"
-
-export const Signup:React.FC = () => {
+import { UserLayout } from '../../layouts'
+import { SignUpForm } from './SignUpForm'
+export const Signup: React.FC = () => {
     return (
-        <h1>Sign up</h1>
+        <UserLayout>
+            <SignUpForm/>
+        </UserLayout>
     )
 }

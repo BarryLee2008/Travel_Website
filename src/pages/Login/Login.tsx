@@ -1,7 +1,10 @@
 import React from "react";
-
-export const Login:React.FC = () => {
+import { UserLayout } from '../../layouts'
+import { LoginForm } from './LoginForm'
+export const Login: React.FC = () => {
     return (
-        <h1>Login</h1>
+        <UserLayout>
+            <LoginForm/>
+        </UserLayout>
     )
 }
